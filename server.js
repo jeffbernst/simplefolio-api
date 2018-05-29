@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
@@ -11,8 +9,6 @@ const {router: usersRouter} = require('./routes/usersRouter')
 
 app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
-app.use(express.static('public', {extensions: ['html', 'htm']}))
-app.use('/node_modules', express.static('node_modules'))
 
 mongoose.Promise = global.Promise
 

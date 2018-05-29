@@ -10,7 +10,6 @@ const config = require('../config')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
-const md5 = require('md5')
 
 const {User} = require('../models/user')
 const {jwtStrategy, localStrategy} = require('../strategies')
