@@ -37,7 +37,7 @@ const localAuth = passport.authenticate('local', {session: false})
 // create new user and return auth token
 router.post('/', async (req, res) => {
   try {
-    const requiredFields = ['name', 'email', 'password']
+    const requiredFields = ['email', 'password']
     const missingField = requiredFields.find(field => !(field in req.body))
 
     if (missingField) {
@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
       })
     }
 
-    const stringFields = ['name', 'email', 'password']
+    const stringFields = ['email', 'password']
     const nonStringField = stringFields.find(
       field => field in req.body && typeof req.body[field] !== 'string'
     )
@@ -105,8 +105,7 @@ router.post('/', async (req, res) => {
       })
     }
 
-    let {name = '', email, password} = req.body
-    name = name.trim()
+    let {email, password} = req.body
 
     return User.find({email})
       .count()
@@ -124,10 +123,8 @@ router.post('/', async (req, res) => {
       })
       .then(hash => {
         return User.create({
-          userName: name,
           userEmail: email,
-          password: hash,
-          gravatarHash: md5(email.toLowerCase())
+          password: hash
         })
       })
       .then(user => {
@@ -153,18 +150,13 @@ router.post('/login', localAuth, (req, res) => {
   })
 })
 
-async function getUser (userId) {
-  return await User.findById(userId)
-}
-
 router.get('/', jwtAuth, async (req, res) => {
   try {
-    const user = await getUser(req.user.id)
+    const user = await User.findById(req.user.id)
     res.send({
       userId: user._id,
-      gravatarHash: user.gravatarHash,
-      enrolledIn: user.enrolledIn,
-      drafts: user.drafts
+      portfolio: user.portfolio,
+      watchlist: user.watchlist
     })
   } catch (err) {
     console.error(err)
