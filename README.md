@@ -1,3 +1,3 @@
-# Creative Crypto API
+# Simplefolio API
 
-API for thecreativecrypto.com
+API for simplefol.io
