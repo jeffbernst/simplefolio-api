@@ -24,7 +24,7 @@ passport.use(jwtStrategy)
 
 const createAuthToken = function (user) {
   return jwt.sign({user}, config.JWT_SECRET, {
-    subject: user.userEmail,
+    subject: user.username,
     expiresIn: config.JWT_EXPIRY,
     algorithm: 'HS256'
   })
@@ -36,7 +36,7 @@ const localAuth = passport.authenticate('local', {session: false})
 // create new user and return auth token
 router.post('/', async (req, res) => {
   try {
-    const requiredFields = ['email', 'password']
+    const requiredFields = ['username', 'password']
     const missingField = requiredFields.find(field => !(field in req.body))
 
     if (missingField) {
@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
       })
     }
 
-    const stringFields = ['email', 'password']
+    const stringFields = ['username', 'password']
     const nonStringField = stringFields.find(
       field => field in req.body && typeof req.body[field] !== 'string'
     )
@@ -62,7 +62,7 @@ router.post('/', async (req, res) => {
       })
     }
 
-    const explicitlyTrimmedFields = ['email', 'password']
+    const explicitlyTrimmedFields = ['username', 'password']
     const nonTrimmedField = explicitlyTrimmedFields.find(
       field => req.body[field].trim() !== req.body[field]
     )
@@ -104,17 +104,17 @@ router.post('/', async (req, res) => {
       })
     }
 
-    let {email, password} = req.body
+    let {username, password} = req.body
 
-    return User.find({email})
+    return User.find({username})
       .count()
       .then(count => {
         if (count > 0) {
           return Promise.reject({
             code: 422,
             reason: 'ValidationError',
-            message: 'Email address has already been used.',
-            location: 'email'
+            message: 'Username has already been used.',
+            location: 'username'
           })
         }
 
@@ -122,7 +122,7 @@ router.post('/', async (req, res) => {
       })
       .then(hash => {
         return User.create({
-          userEmail: email,
+          username: username,
           password: hash
         })
       })
