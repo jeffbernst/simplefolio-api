@@ -3,16 +3,14 @@ const Schema = mongoose.Schema
 const bcrypt = require('bcryptjs')
 
 const userSchema = new Schema({
-  userName: String,
   userEmail: String,
   password: String,
-  portfolio: Object,
+  portfolio: [Object],
   watchlist: Array
 })
 
 userSchema.methods.serialize = function () {
   return {
-    userName: this.userName || '',
     userEmail: this.userEmail || '',
     id: this._id
   }
