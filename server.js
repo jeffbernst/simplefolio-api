@@ -1,14 +1,19 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
-
-const {DATABASE_URL, PORT} = require('./config.js')
+const cors = require('cors');
+const {DATABASE_URL, PORT, CLIENT_ORIGIN} = require('./config')
 const app = express()
 
 const {router: usersRouter} = require('./routes/usersRouter')
 
 app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+);
 
 mongoose.Promise = global.Promise
 
