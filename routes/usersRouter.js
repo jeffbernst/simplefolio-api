@@ -10,11 +10,19 @@ const config = require('../config')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
+const cors = require('cors')
+const {CLIENT_ORIGIN} = require('../config')
 
 const {User} = require('../models/user')
 const {jwtStrategy, localStrategy} = require('../strategies')
 
 mongoose.Promise = global.Promise
+
+router.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+)
 
 router.use(passport.initialize())
 router.use(jsonParser)
@@ -127,9 +135,12 @@ router.post('/', async (req, res) => {
         })
       })
       .then(user => {
-        const authToken = createAuthToken(user.serialize())
-        return res.status(201).json({authToken})
+        return res.status(201).json(user.serialize())
       })
+      // .then(user => {
+      //   const authToken = createAuthToken(user.serialize())
+      //   return res.status(201).json({authToken})
+      // })
       .catch(err => {
         if (err.reason === 'ValidationError') {
           return res.status(err.code).json(err)
@@ -143,6 +154,7 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/login', localAuth, (req, res) => {
+  console.log('logging in')
   const authToken = createAuthToken(req.user.serialize())
   res.json({
     authToken

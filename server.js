@@ -7,13 +7,10 @@ const app = express()
 
 const {router: usersRouter} = require('./routes/usersRouter')
 
+
+
 app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
-app.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
-);
 
 mongoose.Promise = global.Promise
 
