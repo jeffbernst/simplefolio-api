@@ -7,8 +7,6 @@ const app = express()
 
 const {router: usersRouter} = require('./routes/usersRouter')
 
-
-
 app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
 

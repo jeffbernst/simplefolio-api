@@ -15,16 +15,16 @@ const jwtStrategy = new JwtStrategy(
 )
 
 const localStrategy = new LocalStrategy(
-  {usernameField: 'userEmail', passwordField: 'password'},
-  (userEmail, password, callback) => {
+  {usernameField: 'username', passwordField: 'password'},
+  (username, password, callback) => {
     let user
-    User.findOne({userEmail})
+    User.findOne({username})
       .then(_user => {
         user = _user
         if (!user)
           return Promise.reject({
             reason: 'Login error.',
-            message: 'User email incorrect.'
+            message: 'Username incorrect.'
           })
         return user.validatePassword(password)
       })

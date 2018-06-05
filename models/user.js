@@ -5,7 +5,10 @@ const bcrypt = require('bcryptjs')
 const userSchema = new Schema({
   username: String,
   password: String,
-  portfolio: [Object],
+  portfolio: [{
+    id: Number,
+    quantity: Number
+  }],
   watchlist: Array
 })
 

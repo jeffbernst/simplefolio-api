@@ -33,7 +33,7 @@
   },
   "scripts": {
     "test": "mocha --exit",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "MIT"

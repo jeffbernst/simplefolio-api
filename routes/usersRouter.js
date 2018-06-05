@@ -137,10 +137,6 @@ router.post('/', async (req, res) => {
       .then(user => {
         return res.status(201).json(user.serialize())
       })
-      // .then(user => {
-      //   const authToken = createAuthToken(user.serialize())
-      //   return res.status(201).json({authToken})
-      // })
       .catch(err => {
         if (err.reason === 'ValidationError') {
           return res.status(err.code).json(err)
@@ -154,18 +150,21 @@ router.post('/', async (req, res) => {
 })
 
 router.post('/login', localAuth, (req, res) => {
-  console.log('logging in')
   const authToken = createAuthToken(req.user.serialize())
   res.json({
     authToken
   })
 })
 
+router.post('/refresh', jwtAuth, (req, res) => {
+  const authToken = createAuthToken(req.user);
+  res.json({authToken});
+});
+
 router.get('/', jwtAuth, async (req, res) => {
   try {
     const user = await User.findById(req.user.id)
     res.send({
-      userId: user._id,
       portfolio: user.portfolio,
       watchlist: user.watchlist
     })
