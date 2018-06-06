@@ -7,6 +7,8 @@ const userSchema = new Schema({
   password: String,
   portfolio: [{
     id: Number,
+    name: String,
+    symbol: String,
     quantity: Number
   }],
   watchlist: Array
