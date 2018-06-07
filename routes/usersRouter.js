@@ -173,7 +173,15 @@ router.get('/', jwtAuth, async (req, res) => {
   }
 })
 
-// TODO add endpoint to update user object with portfolio, etc.
+router.put('/portfolio', jwtAuth, async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.user.id, {portfolio: req.body})
+    console.log({user})
+
+  } catch (err) {
+    console.error(err)
+  }
+})
 
 module.exports = {
   router
