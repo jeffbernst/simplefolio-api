@@ -175,8 +175,11 @@ router.get('/', jwtAuth, async (req, res) => {
 
 router.put('/portfolio', jwtAuth, async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.user.id, {portfolio: req.body})
-    console.log({user})
+    const user = await User.findByIdAndUpdate(req.user.id, {portfolio: req.body}, {new: true})
+    res.send({
+      portfolio: user.portfolio,
+      watchlist: user.watchlist
+    })
 
   } catch (err) {
     console.error(err)
