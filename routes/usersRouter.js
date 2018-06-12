@@ -186,6 +186,19 @@ router.put('/portfolio', jwtAuth, async (req, res) => {
   }
 })
 
+router.put('/watchlist', jwtAuth, async (req, res) => {
+  try {
+    const user = await User.findByIdAndUpdate(req.user.id, {watchlist: req.body}, {new: true})
+    res.send({
+      portfolio: user.portfolio,
+      watchlist: user.watchlist
+    })
+
+  } catch (err) {
+    console.error(err)
+  }
+})
+
 module.exports = {
   router
 }
