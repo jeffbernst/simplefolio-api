@@ -11,7 +11,11 @@ const userSchema = new Schema({
     symbol: String,
     quantity: Number
   }],
-  watchlist: Array
+  watchlist: [{
+    id: Number,
+    name: String,
+    symbol: String
+  }]
 })
 
 userSchema.methods.serialize = function () {
