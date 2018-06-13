@@ -7,21 +7,22 @@ const app = express()
 
 const {router: usersRouter} = require('./routes/usersRouter')
 
-app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-  next()
-})
+// app.use(function (req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*')
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+//   next()
+// })
+
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+)
 
 app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
 
 mongoose.Promise = global.Promise
-// app.use(
-//   cors({
-//     origin: CLIENT_ORIGIN
-//   })
-// )
 
 app.get('/', (req, res) => {
   res.json("server working")
