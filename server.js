@@ -19,7 +19,7 @@ app.use('/api/users', usersRouter)
 mongoose.Promise = global.Promise
 
 app.get('/', (req, res) => {
-  res.json("server working")
+  res.json('server working')
 })
 
 let server

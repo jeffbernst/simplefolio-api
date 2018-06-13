@@ -1,27 +1,34 @@
 const samplePortfolio = [
   {
     id: 1,
+    name: 'Bitcoin',
+    symbol: 'BTC',
     quantity: 0.1
   },
   {
     id: 1027,
+    name: 'Ethereum',
+    symbol: 'ETH',
     quantity: 1
-  }
-  ,
-  {
-    id: 1230,
-    quantity: 150
-  },
-  {
-    id: 1697,
-    quantity: 500
   }
 ]
 
-const sampleWatchlist = [1, 1027, 1230, 1765, 1376, 1839]
+const sampleWatchlist = [
+  {
+    id: 1,
+    name: 'Bitcoin',
+    symbol: 'BTC'
+  },
+  {
+    id: 1027,
+    name: 'Ethereum',
+    symbol: 'ETH'
+  }
+]
+
 
 const mockSignupData = {
-  email: 'test@test.com',
+  username: 'name',
   password: 'testtesttest'
 }
 
