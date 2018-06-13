@@ -23,6 +23,10 @@ mongoose.Promise = global.Promise
 //   })
 // )
 
+app.get('/', (req, res) => {
+  res.json("server working")
+})
+
 let server
 
 function runServer (databaseUrl = DATABASE_URL, port = PORT) {
