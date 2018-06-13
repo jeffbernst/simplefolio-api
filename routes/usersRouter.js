@@ -10,19 +10,11 @@ const config = require('../config')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const jsonParser = bodyParser.json()
-const cors = require('cors')
-const {CLIENT_ORIGIN} = require('../config')
 
 const {User} = require('../models/user')
 const {jwtStrategy, localStrategy} = require('../strategies')
 
 mongoose.Promise = global.Promise
-
-router.use(
-  cors({
-    origin: CLIENT_ORIGIN
-  })
-)
 
 router.use(passport.initialize())
 router.use(jsonParser)

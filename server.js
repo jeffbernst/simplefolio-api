@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyparser = require('body-parser')
-const cors = require('cors');
+const cors = require('cors')
 const {DATABASE_URL, PORT, CLIENT_ORIGIN} = require('./config')
 const app = express()
 
@@ -11,6 +11,18 @@ app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
 
 mongoose.Promise = global.Promise
+
+// app.use(
+//   cors({
+//     origin: CLIENT_ORIGIN
+//   })
+// )
+
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', CLIENT_ORIGIN)
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
 
 let server
 
