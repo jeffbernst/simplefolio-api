@@ -11,7 +11,6 @@ app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
 
 mongoose.Promise = global.Promise
-
 // app.use(
 //   cors({
 //     origin: CLIENT_ORIGIN
