@@ -8,7 +8,7 @@ const {mockSignupData, samplePortfolio, sampleWatchlist} = require('./mock-data'
 
 chai.should()
 chai.use(chaiHttp)
-chai.use(chaiSubset);
+chai.use(chaiSubset)
 
 async function tearDownDb () {
   console.warn('Deleting database')
