@@ -6,6 +6,7 @@ const {DATABASE_URL, PORT, CLIENT_ORIGIN} = require('./config')
 const app = express()
 
 const {router: usersRouter} = require('./routes/usersRouter')
+const {router: tickerRouter} = require('./routes/tickerRouter')
 
 app.use(
   cors({
@@ -15,6 +16,7 @@ app.use(
 
 app.use(bodyparser.json())
 app.use('/api/users', usersRouter)
+app.use('/api/ticker', tickerRouter)
 
 mongoose.Promise = global.Promise
 

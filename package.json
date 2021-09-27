@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
+    "axios": "^0.21.4",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "connect-flash": "^0.1.1",
